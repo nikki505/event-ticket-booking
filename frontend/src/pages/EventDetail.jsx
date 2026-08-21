@@ -112,7 +112,7 @@ export default function EventDetail() {
       {event.status === 'CANCELLED' ? (
         <div className="banner error">This event has been cancelled.</div>
       ) : (
-        <form className="form" onSubmit={submit}>
+        <form className="form" onSubmit={submit} noValidate>
           <Field label="Quantity (1 to 10)" name="quantity" type="number" min="1" max="10"
             value={quantity} onChange={(e) => setQuantity(e.target.value)} error={fieldError} />
 
