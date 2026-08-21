@@ -103,11 +103,18 @@ export default function EventDetail() {
 
       {message && <div className={`banner ${messageKind}`}>{message}</div>}
 
-      {event.seatsRemaining === 0 ? (
-        <div className="banner warn">This event is sold out.</div>
-      ) : event.seatsRemaining <= 10 ? (
-        <div className="banner warn">Only {event.seatsRemaining} seats remain for this event.</div>
-      ) : null}
+      {/* Only show the low seat warning when there is no error on screen. If a booking was
+          just rejected the error banner already says how many seats are left, and showing
+          the warning as well repeated the same sentence twice in two different colours. */}
+      {!message && (
+        event.seatsRemaining === 0 ? (
+          <div className="banner warn">This event is sold out.</div>
+        ) : event.seatsRemaining <= 10 ? (
+          <div className="banner warn">
+            Only {event.seatsRemaining} {event.seatsRemaining === 1 ? 'seat remains' : 'seats remain'} for this event.
+          </div>
+        ) : null
+      )}
 
       {event.status === 'CANCELLED' ? (
         <div className="banner error">This event has been cancelled.</div>
