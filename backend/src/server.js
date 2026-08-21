@@ -1,4 +1,11 @@
-require('dotenv').config();
+const path = require('path');
+
+// Work out where .env is from THIS file, not from wherever the process happened to be
+// started. dotenv defaults to process.cwd(), which is fine when I run npm start inside
+// backend/ on my laptop, but on the server pm2 starts the process from a different
+// directory and the file was never found. The app then crashed on every boot saying
+// JWT_SECRET was not set, even though the file was sitting right there.
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 const app = require('./app');
 const { connectDb } = require('./config/db');
