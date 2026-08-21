@@ -449,26 +449,26 @@ non-functional and have no screen, and R3/R4 are enforced entirely in middleware
 
 | Req. | Story / issue | Design element | Figma frame | Commit | Deployment evidence |
 |---|---|---|---|---|---|
-| R1 | SCRUM-6 · US-01 Register with a role | AuthController.register; User block (§6.4) | `R1 - Register`, `R1 - Register (validation errors)` | *[on implementation]* | *[on deployment]* |
-| R2 | SCRUM-7 · US-02 Log in | AuthController.login; AuthMiddleware (§6.5) | `R2 - Login`, `R2 - Login (error)` | *[on implementation]* | *[on deployment]* |
-| R3 | SCRUM-7 · US-02 AC3 | AuthMiddleware (§6.5) | — | *[on implementation]* | *[on deployment]* |
-| R4 | SCRUM-8 · US-03 Role protection | RoleGuard, OwnershipGuard (§6.5) | — | *[on implementation]* | *[on deployment]* |
-| R5 | SCRUM-9 · US-04 Create an event | EventController.create; Event block | `R5 - Create Event`, `R5 - Create Event (validation errors)` | *[on implementation]* | *[on deployment]* |
-| R6 | SCRUM-10 · US-05 View my events | EventController.listMine | `R6 - Organiser Dashboard`, `R6 - Organiser Dashboard (empty)` | *[on implementation]* | *[on deployment]* |
-| R7 | SCRUM-11 · US-06 Update an event | EventController.update | `R7 - Edit Event` | *[on implementation]* | *[on deployment]* |
-| R8 | SCRUM-12 · US-07 Cancel an event | EventController.cancel; Event state machine (§6.9) | `R8 - Cancel Event Confirm` | *[on implementation]* | *[on deployment]* |
-| R9 | SCRUM-13 · US-08 Browse events | EventController.listPublic | `R9 - Event Listing`, `R9 - Event Listing (empty state)` | *[on implementation]* | *[on deployment]* |
-| R10 | SCRUM-14 · US-09 Book tickets | BookingController.create; sequence §6.7 | `R10 - Book Tickets`, `R10 - Booking Success` | *[on implementation]* | *[on deployment]* |
-| R11 | SCRUM-15 · US-10 No overbooking | Atomic findOneAndUpdate (§6.7); derived R11.1 | `R11 - Sold Out / Capacity Conflict` | *[on implementation]* | *[on deployment]* |
-| R12 | SCRUM-16 · US-11 View my bookings | BookingController.listMine | `R12 - My Bookings`, `R12 - My Bookings (empty)` | *[on implementation]* | *[on deployment]* |
-| R13 | SCRUM-17 · US-12 Cancel my booking | BookingController.cancel; activity §6.8 | `R13 - Cancel Booking Confirm` | *[on implementation]* | *[on deployment]* |
-| R14 | SCRUM-18 · US-13 View attendees | EventController.listBookings | `R14 - Attendee List` | *[on implementation]* | *[on deployment]* |
-| N1 | SCRUM-6, SCRUM-9 | Validator (§6.5); validation table §1.10 | `R1 - Register (validation errors)`, `R5 - Create Event (validation errors)` | *[on implementation]* | *[on deployment]* |
-| N2 | SCRUM-6 · US-01 AC4 | bcrypt hashing in AuthController | — | *[on implementation]* | *[on deployment]* |
-| N3 | SCRUM-19 · US-14 | `.gitignore`, `.env.example` | — | `5ea31db` | n/a — repository hygiene |
-| N4 | SCRUM-20 · US-15 AC4 | DataStore block (§6.4) | — | *[on implementation]* | *[on deployment]* |
-| N5 | SCRUM-20 · US-15 | Deployment view (§6.14) | — | *[on implementation]* | *[on deployment]* |
-| N6 | SCRUM-20 · US-15 AC3 | Security group configuration (§6.14) | — | *[on implementation]* | *[on deployment]* |
+| R1 | SCRUM-6 · US-01 Register with a role | AuthController.register; User block (§6.4) | `R1 - Register`, `R1 - Register (validation errors)` | `6582394` api, `d397361` ui | POST /api/auth/register, both roles created on the instance |
+| R2 | SCRUM-7 · US-02 Log in | AuthController.login; AuthMiddleware (§6.5) | `R2 - Login`, `R2 - Login (error)` | `6582394` api, `e55dcde` `d397361` ui | POST /api/auth/login returns a token on the instance |
+| R3 | SCRUM-7 · US-02 AC3 | AuthMiddleware (§6.5) | — | `e29920b` | GET /api/events/mine with no token returns 401 |
+| R4 | SCRUM-8 · US-03 Role protection | RoleGuard, OwnershipGuard (§6.5) | — | `e29920b` api, `d923d8b` ui | Organiser POST /api/bookings returns 403 |
+| R5 | SCRUM-9 · US-04 Create an event | EventController.create; Event block | `R5 - Create Event`, `R5 - Create Event (validation errors)` | `354b7f0` api, `93ae389` ui | POST /api/events created the demo event |
+| R6 | SCRUM-10 · US-05 View my events | EventController.listMine | `R6 - Organiser Dashboard`, `R6 - Organiser Dashboard (empty)` | `354b7f0` api, `93ae389` ui | GET /api/events/mine lists only own events |
+| R7 | SCRUM-11 · US-06 Update an event | EventController.update | `R7 - Edit Event` | `354b7f0` api, `93ae389` ui | PATCH /api/events/:id |
+| R8 | SCRUM-12 · US-07 Cancel an event | EventController.cancel; Event state machine (§6.9) | `R8 - Cancel Event Confirm` | `354b7f0` api, `93ae389` ui | POST /api/events/:id/cancel |
+| R9 | SCRUM-13 · US-08 Browse events | EventController.listPublic | `R9 - Event Listing`, `R9 - Event Listing (empty state)` | `354b7f0` api, `89c62b1` ui | GET /api/events returns the published listing |
+| R10 | SCRUM-14 · US-09 Book tickets | BookingController.create; sequence §6.7 | `R10 - Book Tickets`, `R10 - Booking Success` | `ddb3691` api, `89c62b1` ui | Booked 2 seats, reference ETB-CN54-P657 |
+| R11 | SCRUM-15 · US-10 No overbooking | Atomic findOneAndUpdate (§6.7); derived R11.1 | `R11 - Sold Out / Capacity Conflict` | `ddb3691` api, `89c62b1` ui | Asked for 4 of 1 remaining, refused with 409 |
+| R12 | SCRUM-16 · US-11 View my bookings | BookingController.listMine | `R12 - My Bookings`, `R12 - My Bookings (empty)` | `ddb3691` api, `93ae389` ui | GET /api/bookings/mine scoped to the caller |
+| R13 | SCRUM-17 · US-12 Cancel my booking | BookingController.cancel; activity §6.8 | `R13 - Cancel Booking Confirm` | `ddb3691` api, `93ae389` ui | Cancelled, seats went 1 back to 3, second cancel refused |
+| R14 | SCRUM-18 · US-13 View attendees | EventController.listBookings | `R14 - Attendee List` | `5539023` api, `93ae389` ui | GET /api/events/:id/bookings with matching cross check |
+| N1 | SCRUM-6, SCRUM-9 | Validator (§6.5); validation table §1.10 | `R1 - Register (validation errors)`, `R5 - Create Event (validation errors)` | `6582394` api, `d397361` ui | Invalid payloads refused by the API directly |
+| N2 | SCRUM-6 · US-01 AC4 | bcrypt hashing in AuthController | — | `6582394` | Password stored as a bcrypt hash |
+| N3 | SCRUM-19 · US-14 | `.gitignore`, `.env.example` | — | `5ea31db` | n/a, repository hygiene |
+| N4 | SCRUM-20 · US-15 AC4 | DataStore block (§6.4) | — | `57ecd10` | Event survived a pm2 restart on the instance |
+| N5 | SCRUM-20 · US-15 | Deployment view (§6.14) | — | `57ecd10` `82827ad` | http://54.79.24.72 returns 200 |
+| N6 | SCRUM-20 · US-15 AC3 | Security group configuration (§6.14) | — | `57ecd10` | Only tcp/80 and tcp/22 open, each to one /32; 27017 closed |
 
 **Why the last two columns are not yet filled.** A commit hash and a deployment URL are
 evidence that something was built and deployed. Neither exists yet for R1–R14, so any value

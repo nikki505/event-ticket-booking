@@ -16,8 +16,8 @@ Copy these onto the cover page of the submission PDF.
 | **Jira board** | https://connect-team-acmqgqe7.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog | Live — needs marker access granted |
 | **Draw.io** | *[paste share link]* | Source committed at `docs/diagrams/event-ticket-booking.drawio` — open it at app.diagrams.net and share view-only |
 | **Figma** | *[paste view-only link]* | Generator committed at `design/figma-plugin/` — run it in the Figma desktop app, then share view-only |
-| **EC2 instance ID and name** | *[pending]* | Not yet provisioned |
-| **EC2 public URL** | *[pending]* | Not yet deployed |
+| **EC2 instance ID and name** | `i-04a1250e9732b2449` / `n12202665-nikhittha-eventtix` | Running, ap-southeast-2a |
+| **EC2 public URL** | http://54.79.24.72 | Live. **Reachable only from 112.213.200.97 right now** — see §7.7 of the runbook |
 
 > **The brief warns of negative marking for broken links.** Check every one of these from a
 > logged-out private browsing window before submitting. A Jira board that works while you are

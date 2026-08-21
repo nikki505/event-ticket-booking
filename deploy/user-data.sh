@@ -89,6 +89,11 @@ echo "=== 7. nginx in front ==="
 cat > /etc/nginx/conf.d/eventtix.conf <<'NGINX'
 server {
     listen 80 default_server;
+    # IPv6 as well. Without this line a request to localhost on the box resolves to ::1
+    # first, misses this block completely, and falls through to the stock nginx server,
+    # which answers with its own 404 page. That made it look like the proxy was broken
+    # when it was actually fine for real traffic coming in over IPv4.
+    listen [::]:80 default_server;
     server_name _;
 
     root /home/ec2-user/event-ticket-booking/frontend/dist;
