@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Environment — never commit real values (N3)
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+client/dist/
+
+# Logs
+*.log
+npm-debug.log*
+logs/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Test/coverage
+coverage/
+
+# Credentials — defence in depth
+*.pem
+*.key
