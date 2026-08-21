@@ -14,8 +14,8 @@ Copy these onto the cover page of the submission PDF.
 |---|---|---|
 | **GitHub** | https://github.com/nikki505/event-ticket-booking | Public, live |
 | **Jira board** | https://connect-team-acmqgqe7.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog | Live — needs marker access granted |
-| **Draw.io** | *[pending]* | Not yet created |
-| **Figma** | *[pending]* | Not yet created |
+| **Draw.io** | *[paste share link]* | Source committed at `docs/diagrams/event-ticket-booking.drawio` — open it at app.diagrams.net and share view-only |
+| **Figma** | *[paste view-only link]* | Generator committed at `design/figma-plugin/` — run it in the Figma desktop app, then share view-only |
 | **EC2 instance ID and name** | *[pending]* | Not yet provisioned |
 | **EC2 public URL** | *[pending]* | Not yet deployed |
 
@@ -84,11 +84,19 @@ can be filtered by requirement and the traceability matrix checked against it.
 
 ## Outstanding before submission
 
-1. Grant the marker access to the Jira board — check with your tutor whether they need to be
-   invited by email or whether the board should be made publicly viewable.
-2. Create the draw.io diagram file and share it view-only.
-3. Build the Figma prototype (low-fidelity wireframes first, then clickable high-fidelity).
-4. Build and deploy the application; record the instance ID and public URL.
-5. Complete the `[fill]` markers in `05-genai-log.md` and the iteration review outcomes in
-   `03-iteration-plan.md`.
-6. Tag the release.
+Ordered by what blocks what.
+
+| # | Task | Who | Blocks |
+|---|---|---|---|
+| 1 | Supply tutor's name and tutorial day/time for the cover page | **You** — I cannot know these | Cover page |
+| 2 | Ask your tutor how the marker gets Jira access (email invite vs. public board), then apply it | **You** — needs the tutor's answer | Jira marks |
+| 3 | Open `docs/diagrams/event-ticket-booking.drawio` at app.diagrams.net, share view-only, paste the link above | **You** (needs your Google/OneDrive account) | Draw.io link |
+| 4 | Run the Figma generator (see `design/README.md`), share view-only, paste the link above | **You** — needs Figma desktop app | Figma link, UI/UX marks |
+| 5 | Build the application | Me | Commits column of the traceability matrix |
+| 6 | Provision EC2, deploy, record instance ID and public URL | Me + your AWS login | Deployment column, 8 marks |
+| 7 | Complete the GenAI log honestly — what you edited, what you rejected, what you wrote yourself | **You** — it is a personal declaration | 8 marks |
+| 8 | Fill iteration review outcomes in `03-iteration-plan.md` after each iteration actually runs | **You** | Project management marks |
+| 9 | Tag the release | Me | Git marks |
+
+Items 1, 2, 3, 4, 7 and 8 need you specifically. Items 5, 6 and 9 are mine, and item 6 needs
+you to be present for the AWS sign-in.

@@ -33,7 +33,11 @@ for what purpose, and what was verified or changed afterwards.
 | 2 | 2026-08-21 | `docs/02-product-backlog.md` | Draft epics, user stories, acceptance criteria, tasks and story-point estimates | Story breakdown and Given/When/Then acceptance criteria | *[record any edits]* | Checked every story references a requirement ID |
 | 3 | 2026-08-21 | `docs/03-iteration-plan.md` | Draft two time-boxed iterations with dependencies and a risk register | Iteration split, dependency chains, risks RSK-01…RSK-07 | Review-outcome sections deliberately left blank — to be completed from what actually happens | Dependencies checked against the story list |
 | 4 | 2026-08-21 | `docs/04-decision-log.md` | Draft decision entries D-001…D-008 | Decision structure and rationale | *[confirm each decision is one the student agrees with — a decision log recording decisions the author does not understand or endorse is worthless]* | Each decision cross-checked against the artefacts it claims to affect |
-| 5 | | | | | | |
+| 5 | 2026-08-21 | `docs/06-system-design.md` | Produce SysML views (requirement, block definition, internal block), use case diagram, behavioural views for W1 and W2, state machines, data model, API surface and deployment view | Diagram structure and the accompanying rationale; derived requirement R11.1; decision D-009 | *[record any edits]* | Checked each diagram against the requirements register; confirmed API table covers every requirement |
+| 6 | 2026-08-21 | Jira board (SCRUM-1 … SCRUM-21) | Create 5 epics and 16 stories with acceptance criteria, story points, requirement labels, and two sprints | Issue structure, estimates, sprint split | Sprint dates are provisional and need aligning to the real tutorial schedule | Verified via the Jira API that 21 issues were created with no errors and correct parent links |
+| 7 | 2026-08-21 | `docs/diagrams/event-ticket-booking.drawio` | Generate draw.io source for the SysML and UML views | Generated XML | *[record any edits]* | Opened in draw.io and confirmed all pages render |
+| 8 | 2026-08-21 | `design/figma-plugin/` | Write a Figma plugin that generates the design system, wireframes and hi-fi screens with prototype links | Plugin source, screen content, state coverage | *[record any edits made in Figma after generation]* | Executed against a stubbed Plugin API (`test-harness.js`): 3 pages, 25 frames, 9 components, 11 prototype links, all checks passed |
+| 9 | | | | | | |
 
 ---
 
