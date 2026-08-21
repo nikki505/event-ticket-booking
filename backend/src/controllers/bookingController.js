@@ -65,7 +65,7 @@ async function create(req, res, next) {
       return res.status(409).json({
         message: left === 0
           ? 'This event is now sold out'
-          : `Only ${left} seats remain for this event`,
+          : `Only ${left} ${left === 1 ? 'seat remains' : 'seats remain'} for this event`,
         seatsRemaining: left
       });
     }
