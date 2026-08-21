@@ -446,26 +446,26 @@ convention `R<n> — <screen>` so the link is unambiguous.
 
 | Req. | Story / issue | Design element | Figma frame | Commit | Deployment evidence |
 |---|---|---|---|---|---|
-| R1 | US-01 Register with a role | AuthController.register; User block (§6.4) | `R1 — Register` | `0cf4cb6` (spec) | *[pending]* |
-| R2 | US-02 Log in | AuthController.login; AuthMiddleware (§6.5) | `R2 — Login` | `0cf4cb6` (spec) | *[pending]* |
-| R3 | US-02 AC3 | AuthMiddleware (§6.5) | — | *[pending]* | *[pending]* |
-| R4 | US-03 Role protection | RoleGuard (§6.5) | — | *[pending]* | *[pending]* |
-| R5 | US-04 Create an event | EventController.create; Event block | `R5 — Create Event` | `344d326` (spec) | *[pending]* |
-| R6 | US-05 View my events | EventController.listMine | `R6 — Organiser Dashboard` | `344d326` (spec) | *[pending]* |
-| R7 | US-06 Update an event | EventController.update | `R7 — Edit Event` | *[pending]* | *[pending]* |
-| R8 | US-07 Cancel an event | EventController.cancel; Event state machine (§6.9) | `R8 — Cancel Event Confirm` | *[pending]* | *[pending]* |
-| R9 | US-08 Browse events | EventController.listPublic | `R9 — Event Listing` | *[pending]* | *[pending]* |
-| R10 | US-09 Book tickets | BookingController.create; sequence §6.7 | `R10 — Book Tickets` | *[pending]* | *[pending]* |
-| R11 | US-10 No overbooking | Atomic findOneAndUpdate (§6.7); R11.1 | `R11 — Sold Out / Conflict` | *[pending]* | *[pending]* |
-| R12 | US-11 View my bookings | BookingController.listMine | `R12 — My Bookings` | *[pending]* | *[pending]* |
-| R13 | US-12 Cancel my booking | BookingController.cancel; activity §6.8 | `R13 — Cancel Booking Confirm` | *[pending]* | *[pending]* |
-| R14 | US-13 View attendees | EventController.listBookings | `R14 — Attendee List` | *[pending]* | *[pending]* |
+| R1 | SCRUM-6 · US-01 Register with a role | AuthController.register; User block (§6.4) | `R1 — Register` | `0cf4cb6` (spec) | *[pending]* |
+| R2 | SCRUM-7 · US-02 Log in | AuthController.login; AuthMiddleware (§6.5) | `R2 — Login` | `0cf4cb6` (spec) | *[pending]* |
+| R3 | SCRUM-7 · US-02 AC3 | AuthMiddleware (§6.5) | — | *[pending]* | *[pending]* |
+| R4 | SCRUM-8 · US-03 Role protection | RoleGuard (§6.5) | — | *[pending]* | *[pending]* |
+| R5 | SCRUM-9 · US-04 Create an event | EventController.create; Event block | `R5 — Create Event` | `344d326` (spec) | *[pending]* |
+| R6 | SCRUM-10 · US-05 View my events | EventController.listMine | `R6 — Organiser Dashboard` | `344d326` (spec) | *[pending]* |
+| R7 | SCRUM-11 · US-06 Update an event | EventController.update | `R7 — Edit Event` | *[pending]* | *[pending]* |
+| R8 | SCRUM-12 · US-07 Cancel an event | EventController.cancel; Event state machine (§6.9) | `R8 — Cancel Event Confirm` | *[pending]* | *[pending]* |
+| R9 | SCRUM-13 · US-08 Browse events | EventController.listPublic | `R9 — Event Listing` | *[pending]* | *[pending]* |
+| R10 | SCRUM-14 · US-09 Book tickets | BookingController.create; sequence §6.7 | `R10 — Book Tickets` | *[pending]* | *[pending]* |
+| R11 | SCRUM-15 · US-10 No overbooking | Atomic findOneAndUpdate (§6.7); R11.1 | `R11 — Sold Out / Conflict` | *[pending]* | *[pending]* |
+| R12 | SCRUM-16 · US-11 View my bookings | BookingController.listMine | `R12 — My Bookings` | *[pending]* | *[pending]* |
+| R13 | SCRUM-17 · US-12 Cancel my booking | BookingController.cancel; activity §6.8 | `R13 — Cancel Booking Confirm` | *[pending]* | *[pending]* |
+| R14 | SCRUM-18 · US-13 View attendees | EventController.listBookings | `R14 — Attendee List` | *[pending]* | *[pending]* |
 | N1 | US-01, US-04 | Validator (§6.5); validation table §1.10 | error states | *[pending]* | *[pending]* |
-| N2 | US-01 AC4 | bcrypt in AuthController | — | *[pending]* | *[pending]* |
-| N3 | US-14 | `.gitignore`, `.env.example` | — | `5ea31db` | *[pending]* |
-| N4 | US-15 AC4 | DataStore block | — | *[pending]* | *[pending]* |
-| N5 | US-15 | Deployment view | — | *[pending]* | *[pending]* |
-| N6 | US-15 AC3 | Security group config | — | *[pending]* | *[pending]* |
+| N2 | SCRUM-6 · US-01 AC4 | bcrypt in AuthController | — | *[pending]* | *[pending]* |
+| N3 | SCRUM-19 · US-14 | `.gitignore`, `.env.example` | — | `5ea31db` | *[pending]* |
+| N4 | SCRUM-20 · US-15 AC4 | DataStore block | — | *[pending]* | *[pending]* |
+| N5 | SCRUM-20 · US-15 | Deployment view | — | *[pending]* | *[pending]* |
+| N6 | SCRUM-20 · US-15 AC3 | Security group config | — | *[pending]* | *[pending]* |
 
 Cells marked *[pending]* are filled as the work happens. Filling them in advance would be
 manufacturing evidence, which the brief warns against.
