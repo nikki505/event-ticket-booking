@@ -64,7 +64,7 @@ export default function Register() {
 
       {message && <div className="banner error">{message}</div>}
 
-      <form className="form" onSubmit={submit}>
+      <form className="form" onSubmit={submit} noValidate>
         <Field label="Email" name="email" type="email" value={form.email}
           onChange={change} error={errors.email} autoComplete="email" />
 

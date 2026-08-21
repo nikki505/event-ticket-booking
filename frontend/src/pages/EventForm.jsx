@@ -58,11 +58,17 @@ export default function EventForm() {
     setMessage('');
     setErrors({});
 
+    // Now that the browser is not validating for me, an empty date reaches this line.
+    // new Date('').toISOString() throws a RangeError, so send the raw value through and
+    // let the server answer with the proper message instead of crashing the page.
+    const when = new Date(form.startsAt);
+    const startsAt = isNaN(when.getTime()) ? form.startsAt : when.toISOString();
+
     const payload = {
       title: form.title,
       venue: form.venue,
       description: form.description,
-      startsAt: new Date(form.startsAt).toISOString(),
+      startsAt: startsAt,
       capacity: Number(form.capacity),
       price: Number(form.price)
     };
@@ -94,7 +100,7 @@ export default function EventForm() {
 
       {message && <div className="banner error">{message}</div>}
 
-      <form className="form" onSubmit={submit}>
+      <form className="form" onSubmit={submit} noValidate>
         <Field label="Title" name="title" value={form.title} onChange={change} error={errors.title} />
         <Field label="Venue" name="venue" value={form.venue} onChange={change} error={errors.venue} />
 
