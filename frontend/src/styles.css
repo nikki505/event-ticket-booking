@@ -1,0 +1,132 @@
+/* Styles for the whole app. I kept the colours and spacing the same as the Figma
+   design system page so the built app matches the prototype. */
+
+:root {
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --border: #d0d7de;
+  --line: #e7ecf0;
+  --text: #1f2328;
+  --muted: #656d76;
+  --primary: #1f6feb;
+  --primary-dark: #0d419d;
+  --success: #1a7f37;
+  --success-bg: #dafbe1;
+  --danger: #cf222e;
+  --danger-bg: #ffebe9;
+  --warn: #9a6700;
+  --warn-bg: #fff8c5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.nav .brand { font-weight: 700; font-size: 17px; color: var(--primary); text-decoration: none; }
+.nav a { color: var(--muted); text-decoration: none; }
+.nav a.active { color: var(--text); font-weight: 600; }
+.nav .spacer { margin-left: auto; }
+.nav .who { color: var(--muted); font-size: 13px; }
+
+.page { max-width: 1100px; margin: 0 auto; padding: 32px 24px 64px; }
+h1 { font-size: 28px; font-weight: 600; margin: 0 0 8px; }
+h2 { font-size: 18px; font-weight: 600; margin: 0 0 8px; }
+.sub { color: var(--muted); margin: 0 0 24px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+
+.event-card h3 { margin: 0 0 4px; font-size: 16px; }
+.event-card .meta { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+.event-card .price { font-weight: 600; font-size: 15px; }
+.event-card .seats { color: var(--muted); font-size: 12px; margin: 6px 0 12px; }
+.event-card .seats.low { color: var(--warn); font-weight: 500; }
+
+.form { max-width: 440px; }
+.field { margin-bottom: 18px; }
+.field label { display: block; font-weight: 500; font-size: 13px; margin-bottom: 6px; }
+.field input, .field select, .field textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--text);
+}
+.field input:focus, .field select:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
+.field.has-error input, .field.has-error select { border-color: var(--danger); }
+.field .error { color: var(--danger); font-size: 12px; margin-top: 6px; }
+
+button {
+  padding: 11px 20px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+}
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--primary-dark); }
+.btn-secondary { background: var(--surface); color: var(--text); border-color: var(--border); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-row { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
+
+.banner { padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; }
+.banner.error { background: var(--danger-bg); border: 1px solid var(--danger); color: var(--danger); }
+.banner.success { background: var(--success-bg); border: 1px solid var(--success); color: var(--success); }
+.banner.warn { background: var(--warn-bg); border: 1px solid var(--warn); color: var(--warn); }
+
+table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 10px; overflow: hidden; }
+th { background: var(--line); text-align: left; padding: 13px 14px; font-size: 13px; font-weight: 600; }
+td { padding: 13px 14px; border-top: 1px solid var(--line); font-size: 13px; }
+
+.badge { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+.badge.confirmed { background: var(--success-bg); color: var(--success); }
+.badge.cancelled { background: var(--danger-bg); color: var(--danger); }
+.badge.published { background: var(--success-bg); color: var(--success); }
+.badge.soldout { background: var(--warn-bg); color: var(--warn); }
+
+.empty { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 56px 24px; text-align: center; }
+.empty h2 { margin-bottom: 6px; }
+.empty p { color: var(--muted); margin: 0 0 20px; }
+
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(31, 35, 40, 0.45);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.modal { background: var(--surface); border-radius: 12px; padding: 28px; max-width: 460px; width: 100%; }
+.modal h2 { font-size: 19px; }
+.modal p { color: var(--muted); margin: 0 0 24px; }
+
+.reference {
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  font-size: 18px; font-weight: 600; letter-spacing: 0.5px;
+}
+.muted { color: var(--muted); }
+.loading { padding: 60px; text-align: center; color: var(--muted); }
