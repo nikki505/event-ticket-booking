@@ -41,13 +41,15 @@ Project **SCRUM — Team Astro** (team-managed software project).
 |---|---|---|
 | Epics | 5 | SCRUM-1 … SCRUM-5 |
 | Stories | 16 | SCRUM-6 … SCRUM-21 |
-| Iteration 1 — Foundations | 8 stories, 27 points | 24–30 Aug 2026 |
-| Iteration 2 — Book & Deploy | 8 stories, 35 points | 31 Aug – 6 Sep 2026 |
+| Iteration 1 — Foundations | 8 stories, 27 points | 21 Aug 2026, closed |
+| Iteration 2 — Book & Deploy | 8 stories, 35 points | 22 Aug 2026, closed |
 
 Every story carries its requirement IDs as Jira labels (`R1`, `R11`, `N3` …), so the board
 can be filtered by requirement and the traceability matrix checked against it.
 
-**Sprint dates are provisional** — adjust them to your real tutorial schedule.
+**Sprint dates match the actual commit history** (21 and 22 August 2026). Both sprints are
+closed and all 21 issues are Done, so the board agrees with the repository rather than
+showing planned dates that never happened.
 
 ### Epic to story mapping
 
@@ -84,19 +86,25 @@ can be filtered by requirement and the traceability matrix checked against it.
 
 ## Outstanding before submission
 
-Ordered by what blocks what.
+Everything below needs a person other than the developer, which is why it is still open.
 
-| # | Task | Who | Blocks |
-|---|---|---|---|
-| 1 | Supply tutor's name and tutorial day/time for the cover page | **You** — I cannot know these | Cover page |
-| 2 | Ask your tutor how the marker gets Jira access (email invite vs. public board), then apply it | **You** — needs the tutor's answer | Jira marks |
-| 3 | Open `docs/diagrams/event-ticket-booking.drawio` at app.diagrams.net, share view-only, paste the link above | **You** (needs your Google/OneDrive account) | Draw.io link |
-| 4 | Run the Figma generator (see `design/README.md`), share view-only, paste the link above | **You** — needs Figma desktop app | Figma link, UI/UX marks |
-| 5 | Build the application | Me | Commits column of the traceability matrix |
-| 6 | Provision EC2, deploy, record instance ID and public URL | Me + your AWS login | Deployment column, 8 marks |
-| 7 | Complete the GenAI log honestly — what you edited, what you rejected, what you wrote yourself | **You** — it is a personal declaration | 8 marks |
-| 8 | Fill iteration review outcomes in `03-iteration-plan.md` after each iteration actually runs | **You** | Project management marks |
-| 9 | Tag the release | Me | Git marks |
+| # | Task | Why it is not done |
+|---|---|---|
+| 1 | Confirm the Figma link opens for someone who is not signed in | Figma blocks automated clients, so it could not be verified from outside. Open it in a private window. |
+| 2 | Ask Himi how the marker reaches the EC2 URL | Students cannot create security groups in this account, so port 80 admits one address. Needs the marking IP, or her agreement to open it wider for the demo. |
+| 3 | Ask Himi how the marker gets Jira access | The board sits in a QUT tenanted site. She may already have access through the same tenancy. |
+| 4 | Share the draw.io file if a live link is required | The source is committed and every diagram is rendered into the report, so this is only needed if the rubric insists on a draw.io URL specifically. |
+| 5 | Rewrite the reflection in section 6.3 in your own words | It is a personal account. The events in it are real and verifiable in the repository, but the wording was drafted with AI assistance and it is declared as such in section 6.1. |
+| 6 | Release the Elastic IP after marking | It is shared account capacity held for this project. |
 
-Items 1, 2, 3, 4, 7 and 8 need you specifically. Items 5, 6 and 9 are mine, and item 6 needs
-you to be present for the AWS sign-in.
+---
+
+## Done
+
+| Item | State |
+|---|---|
+| Repository | 30 commits, tagged `v1.0`, one merged pull request with a written self review |
+| Jira | 5 epics, 16 stories, all 21 issues Done, both sprints closed on the real working dates |
+| Application | Both workflows working, 49 automated tests passing |
+| Deployment | Live on an Elastic IP, verified end to end including a process restart |
+| Report | 38 pages, no placeholders, diagrams and screenshots embedded |
