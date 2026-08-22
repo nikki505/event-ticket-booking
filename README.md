@@ -7,7 +7,7 @@ A small booking system where **organisers** publish events and **attendees** boo
 built so that an event can never be oversold, even when two people try to book the last seat
 at the same instant.
 
-**Live:** http://54.79.24.72 · **Instance:** `i-04a1250e9732b2449` (ap-southeast-2)
+**Live:** http://32.236.117.199 · **Instance:** `i-04a1250e9732b2449` (ap-southeast-2)
 
 > Access note: the deployed URL is currently reachable from one IP address only. The account
 > restriction that causes this, and what to do about it before marking, are explained in
@@ -206,7 +206,7 @@ Real gaps, not a claim that there are none.
 - **The deployed URL is open to one IP.** Students cannot create security groups in this
   teaching account, and the shared ones are attached to 30+ other students' instances, so
   opening port 80 to the world would expose their machines too. See §7.7 of the runbook.
-- **No Elastic IP**, so the public address changes if the instance is stopped and started.
+- **The Elastic IP should be released after marking**, since it is a shared account resource held for this project.
 - **Single instance.** No load balancer, no redundancy, no zero-downtime deploys.
 - **MongoDB has no authentication.** It is bound to localhost, so unreachable from outside,
   but any process on the instance could connect.

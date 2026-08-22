@@ -25,8 +25,8 @@ to follow it and redeploy without asking me anything.
 | **VPC** | `vpc-01db62f7487ef8207` (aws-controltower-VPC) |
 | **Security group** | `sg-0cc12e170c4f78181` (student-allowed-sg-7) |
 | **Key pair** | `n12202665-eventtix-key` |
-| **Public IP** | 54.79.24.72 |
-| **Public URL** | http://54.79.24.72 |
+| **Public IP** | 32.236.117.199 |
+| **Public URL** | http://32.236.117.199 |
 | **Storage** | 16 GB gp3, deleted on termination |
 
 ---
@@ -73,8 +73,8 @@ one assignment.
 
 | Port | Source | Why |
 |---|---|---|
-| 80 | `112.213.200.97/32` | The developer machine only. See §7.7 for marking access. |
-| 22 | `112.213.200.97/32` | SSH from the developer machine only, never `0.0.0.0/0`. |
+| 80 | `1.132.104.252/32` | The developer machine only. See §7.7 for marking access. |
+| 22 | `1.132.104.252/32` | SSH from the developer machine only, never `0.0.0.0/0`. |
 | 27017 | **not open** | MongoDB binds to `127.0.0.1` inside the instance, so the database is unreachable from outside even though it shares the host. |
 
 Other rules visible on this group belong to other students and were not touched.
@@ -202,9 +202,10 @@ Expected: `{"status":"ok","time":"..."}`.
 aws ec2 describe-instances --instance-ids i-04a1250e9732b2449 --query "Reservations[0].Instances[0].PublicIpAddress" --output text --profile ifn636
 ```
 
-> **The public IP changes if the instance is stopped and started.** There is no Elastic IP
-> attached. Check the address before the demonstration and update any link that was
-> recorded earlier. This is risk RSK-07.
+> **An Elastic IP is attached, so the address is stable.** `32.236.117.199`
+> (`eipalloc-0538548177cecdd19`) survives a stop and start, which closes risk RSK-07.
+> This was added after the address changed once during development and broke every link
+> that had been recorded. Do not release the allocation while the project is being marked.
 
 ### SSH in
 
@@ -272,8 +273,9 @@ and re-verify the URL from outside the developer network.
 
 Stated honestly, because US-16 AC3 asks for real gaps rather than a claim that there are none.
 
-- **No Elastic IP.** A stop/start changes the public address. Not attached because Elastic
-  IPs are a limited resource in a shared teaching account and holding one idle is wasteful.
+- **The Elastic IP is a shared account resource.** One allocation is held for this project.
+  No other Elastic IP was in use in the account at the time, so this consumes spare capacity
+  rather than taking it from another student, but it should be released once marking is done.
 - **Single instance, no load balancer.** Assumption A6. The instance is a single point of
   failure and there is no zero-downtime deployment.
 - **HTTP only, no TLS.** A certificate needs a domain name, and there is no domain for this

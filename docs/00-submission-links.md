@@ -17,7 +17,7 @@ Copy these onto the cover page of the submission PDF.
 | **Draw.io** | *[paste share link]* | Source committed at `docs/diagrams/event-ticket-booking.drawio` — open it at app.diagrams.net and share view-only |
 | **Figma** | https://www.figma.com/design/9YK2uHsPeA2ZhLgq0SlIjG/Event-Ticket-Booking-System | Generated. **Set sharing to anyone with the link can view before submitting** |
 | **EC2 instance ID and name** | `i-04a1250e9732b2449` / `n12202665-nikhittha-eventtix` | Running, ap-southeast-2a |
-| **EC2 public URL** | http://54.79.24.72 | Live. **Reachable only from 112.213.200.97 right now** — see §7.7 of the runbook |
+| **EC2 public URL** | http://32.236.117.199 | Live. **Elastic IP, so the address is now permanent. Reachable only from the developer IP** — see §7.7 of the runbook |
 
 > **The brief warns of negative marking for broken links.** Check every one of these from a
 > logged-out private browsing window before submitting. A Jira board that works while you are

@@ -467,7 +467,7 @@ non-functional and have no screen, and R3/R4 are enforced entirely in middleware
 | N2 | SCRUM-6 · US-01 AC4 | bcrypt hashing in AuthController | — | `6582394` | Password stored as a bcrypt hash |
 | N3 | SCRUM-19 · US-14 | `.gitignore`, `.env.example` | — | `5ea31db` | n/a, repository hygiene |
 | N4 | SCRUM-20 · US-15 AC4 | DataStore block (§6.4) | — | `57ecd10` | Event survived a pm2 restart on the instance |
-| N5 | SCRUM-20 · US-15 | Deployment view (§6.14) | — | `57ecd10` `82827ad` | http://54.79.24.72 returns 200 |
+| N5 | SCRUM-20 · US-15 | Deployment view (§6.14) | — | `57ecd10` `82827ad` | http://32.236.117.199 returns 200 |
 | N6 | SCRUM-20 · US-15 AC3 | Security group configuration (§6.14) | — | `57ecd10` | Only tcp/80 and tcp/22 open, each to one /32; 27017 closed |
 
 **Why the last two columns are not yet filled.** A commit hash and a deployment URL are
