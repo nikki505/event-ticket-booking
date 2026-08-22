@@ -6,8 +6,8 @@ Copy these onto the cover page of the submission PDF.
 |---|---|
 | **Full name** | Nikhittha Mukkala |
 | **Student ID** | N12202665 |
-| **Tutor's name** | *[fill]* |
-| **Tutorial day and time** | *[fill]* |
+| **Tutor's name** | Shinthi Tasnim Himi (Himi) |
+| **Tutorial day and time** | Wednesday 1:00 pm to 3:00 pm |
 | **Project name** | Event Ticket Booking System |
 
 | Artefact | Link | Status |
@@ -15,7 +15,7 @@ Copy these onto the cover page of the submission PDF.
 | **GitHub** | https://github.com/nikki505/event-ticket-booking | Public, live |
 | **Jira board** | https://connect-team-acmqgqe7.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog | Live — needs marker access granted |
 | **Draw.io** | *[paste share link]* | Source committed at `docs/diagrams/event-ticket-booking.drawio` — open it at app.diagrams.net and share view-only |
-| **Figma** | *[paste view-only link]* | Generator committed at `design/figma-plugin/` — run it in the Figma desktop app, then share view-only |
+| **Figma** | https://www.figma.com/design/9YK2uHsPeA2ZhLgq0SlIjG/Event-Ticket-Booking-System | Generated. **Set sharing to anyone with the link can view before submitting** |
 | **EC2 instance ID and name** | `i-04a1250e9732b2449` / `n12202665-nikhittha-eventtix` | Running, ap-southeast-2a |
 | **EC2 public URL** | http://54.79.24.72 | Live. **Reachable only from 112.213.200.97 right now** — see §7.7 of the runbook |
 
