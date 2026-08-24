@@ -194,6 +194,31 @@ Expected: `{"status":"ok","time":"..."}`.
 
 ---
 
+## 7.6a The instance is stopped automatically
+
+The instance was found stopped on 24 August without anyone stopping it deliberately. When
+this account was first surveyed all 169 instances in it were stopped and none were running,
+so the teaching account almost certainly stops instances on a schedule to control cost.
+
+**This matters for the demonstration.** Check the instance is running before the session and
+start it if it is not:
+
+```bash
+aws ec2 start-instances --instance-ids i-04a1250e9732b2449 --profile ifn636
+aws ec2 wait instance-running --instance-ids i-04a1250e9732b2449 --profile ifn636
+```
+
+Two things were verified when this happened for real:
+
+- The Elastic IP held, so the address stayed `32.236.117.199` across a full stop and start.
+  Without it the address would have changed and every recorded link would have broken.
+- The application came back by itself on the first request after boot, with no manual step,
+  because pm2 was registered as a boot service. The events and bookings created before the
+  stop were all still present, which tests requirement N4 more convincingly than restarting
+  the process alone.
+
+---
+
 ## 7.6 Routine operations
 
 ### Get the current public IP
