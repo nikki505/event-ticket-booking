@@ -13,7 +13,7 @@ Copy these onto the cover page of the submission PDF.
 | Artefact | Link | Status |
 |---|---|---|
 | **GitHub** | https://github.com/nikki505/event-ticket-booking | Public, live |
-| **Jira board** | https://connect-team-acmqgqe7.atlassian.net/jira/software/projects/SCRUM/boards/1/timeline | Timeline, not backlog. Both sprints are closed and all 21 items are Done, which leaves the backlog view empty. Needs marker access granted |
+| **Jira board** | https://connect-team-acmqgqe7.atlassian.net/jira/software/projects/SCRUM/boards/1/timeline | Timeline, not backlog, because closing both sprints left the backlog view empty. **Requires a sign in.** Atlassian Cloud no longer allows anonymous access to Jira projects, so the board is also exported as data in `docs/08-jira-export.md` and in section 1.13 of the report |
 | **Draw.io** | https://app.diagrams.net/?splash=0&ui=min#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fnikki505%2Fevent-ticket-booking%2Fmain%2Fdocs%2Fdiagrams%2Fevent-ticket-booking.drawio | Loads the committed source straight from the public repo, so it needs no cloud account and cannot drift from the file. Opens on the use case diagram with all nine page tabs along the bottom |
 | **Figma** | https://www.figma.com/design/9YK2uHsPeA2ZhLgq0SlIjG/Event-Ticket-Booking-System | Generated. **Set sharing to anyone with the link can view before submitting** |
 | **EC2 instance ID and name** | `i-04a1250e9732b2449` / `n12202665-nikhittha-eventtix` | Running, ap-southeast-2a |
@@ -94,7 +94,7 @@ Everything below needs a person other than the developer, which is why it is sti
 |---|---|---|
 | 1 | Confirm the Figma link opens for someone who is not signed in | Figma blocks automated clients, so it could not be verified from outside. Open it in a private window. |
 | 2 | Ask Himi how the marker reaches the EC2 URL | Students cannot create security groups in this account, so port 80 admits one address. Needs the marking IP, or her agreement to open it wider for the demo. |
-| 3 | Ask Himi how the marker gets Jira access | The board sits in a QUT tenanted site. She may already have access through the same tenancy. |
+| 3 | Ask Himi how the marker gets Jira access | Confirmed by testing in a private window: the link asks for a sign in. This cannot be fixed from the project, Atlassian removed anonymous access. Either she is already in the tenancy, or invite her QUT address under Project settings, Access. The export in `docs/08-jira-export.md` covers the gap meanwhile. |
 | 5 | Rewrite the reflection in section 6.3 in your own words | It is a personal account. The events in it are real and verifiable in the repository, but the wording was drafted with AI assistance and it is declared as such in section 6.1. |
 | 6 | Release the Elastic IP after marking | It is shared account capacity held for this project. |
 
