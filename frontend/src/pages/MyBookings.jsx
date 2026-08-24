@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
 
-// R12 and R13. Matches the Figma frames "R12 My Bookings", "R12 My Bookings (empty)"
-// and "R13 Cancel Booking Confirm".
+// R12 and R13. Figma frames R12 My Bookings and R13 Cancel Booking Confirm.
 
 export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
   const [messageKind, setMessageKind] = useState('error');
-  const [confirming, setConfirming] = useState(null); // the booking waiting on the dialog
+  const [confirming, setConfirming] = useState(null); // booking waiting on the dialog
   const [busy, setBusy] = useState(false);
 
   async function load() {
@@ -34,7 +33,7 @@ export default function MyBookings() {
       setMessageKind('success');
       setMessage(`Booking ${confirming.reference} cancelled and ${confirming.quantity} ${confirming.quantity === 1 ? 'seat has' : 'seats have'} been released.`);
       setConfirming(null);
-      await load(); // reload so the status badge updates
+      await load(); // reload so the badge updates
     } catch (err) {
       setMessageKind('error');
       setMessage(err.message);
@@ -81,8 +80,8 @@ export default function MyBookings() {
                   <span className={`badge ${b.status.toLowerCase()}`}>{b.status}</span>
                 </td>
                 <td>
-                  {/* Only a confirmed booking can be cancelled. Cancelling twice would
-                      try to give the seats back twice, and the server refuses it anyway. */}
+                  {/* only confirmed bookings can be cancelled, and the server refuses
+                      a second cancel anyway */}
                   {b.status === 'CONFIRMED' && (
                     <button className="btn-secondary" onClick={() => setConfirming(b)}>Cancel</button>
                   )}
@@ -93,7 +92,7 @@ export default function MyBookings() {
         </table>
       )}
 
-      {/* Confirmation dialog. Requirement R13 AC4 says nothing changes unless they confirm. */}
+      {/* R13 AC4, nothing changes unless they confirm */}
       {confirming && (
         <div className="modal-backdrop" onClick={() => !busy && setConfirming(null)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>

@@ -1,5 +1,5 @@
-/* Styles for the whole app. I kept the colours and spacing the same as the Figma
-   design system page so the built app matches the prototype. */
+/* Same colours and spacing as the Figma design system page, so the built app
+   matches the prototype. */
 
 :root {
   --bg: #f6f8fa;

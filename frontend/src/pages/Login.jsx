@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import Field from '../components/Field';
 
-// R2. Matches the Figma frames "R2 Login" and "R2 Login (error)".
+// R2. Figma frames R2 Login and R2 Login (error).
 
 export default function Login() {
   const { login } = useAuth();
@@ -28,8 +28,7 @@ export default function Login() {
     try {
       const user = await login(form.email, form.password);
 
-      // If they were sent here from a page they wanted, put them back there.
-      // Otherwise send them to whichever home page suits their role.
+      // put them back where they came from, or their role home page
       const wanted = location.state?.from;
       if (wanted) navigate(wanted, { replace: true });
       else navigate(user.role === 'ORGANISER' ? '/organiser' : '/events', { replace: true });

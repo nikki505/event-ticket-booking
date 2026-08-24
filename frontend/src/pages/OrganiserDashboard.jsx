@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
 
-// R6 and R8. Matches the Figma frames "R6 Organiser Dashboard",
-// "R6 Organiser Dashboard (empty)" and "R8 Cancel Event Confirm".
+// R6 and R8. Figma frames R6 Organiser Dashboard and R8 Cancel Event Confirm.
 
 export default function OrganiserDashboard() {
   const [events, setEvents] = useState([]);
@@ -85,7 +84,7 @@ export default function OrganiserDashboard() {
                       <Link to={`/organiser/events/${event.id}/attendees`}>
                         <button className="btn-secondary">Attendees</button>
                       </Link>
-                      {/* A cancelled event cannot be edited or cancelled again */}
+                      {/* a cancelled event cannot be edited or cancelled again */}
                       {event.status === 'PUBLISHED' && (
                         <>
                           <Link to={`/organiser/events/${event.id}/edit`}>

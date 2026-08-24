@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../api';
 
-// R14. Matches the Figma frame "R14 Attendee List".
+// R14. Figma frame R14 Attendee List.
 
 export default function AttendeeList() {
   const { id } = useParams();
@@ -18,10 +18,9 @@ export default function AttendeeList() {
   if (message) return <div className="page"><div className="banner error">{message}</div></div>;
   if (!data) return <div className="loading">Loading attendees…</div>;
 
-  // These two numbers are worked out in completely different ways. confirmedSeats adds
-  // up the bookings, crossCheck is capacity minus the stored seatsRemaining. They should
-  // always match, so if they ever do not I know the stored counter has drifted and there
-  // is a bug somewhere. This is the safety net for decision D004.
+  // These two are worked out different ways. confirmedSeats adds up the bookings,
+  // crossCheck is capacity minus the stored number. If they ever disagree the counter
+  // has drifted. Safety net for D004.
   const numbersAgree = data.confirmedSeats === data.crossCheck;
 
   return (

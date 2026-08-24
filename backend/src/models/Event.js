@@ -1,18 +1,13 @@
 const mongoose = require('mongoose');
 
-// Event model. Covers R5 to R8.
+// Event model. R5 to R8.
 //
-// The important field here is seatsRemaining. I decided to STORE it rather than
-// work it out by counting bookings every time (decision D004 in my decision log).
+// seatsRemaining is stored here instead of counted from the bookings. That is D004.
+// I need to check for room and take the room in one query, and I can only do that
+// with a number I can update directly.
 //
-// Reason: to stop overbooking I need to check "is there room?" and "take the room"
-// without anything happening in between. With a stored number I can do that in one
-// query. If I counted bookings first and then saved a new total, two people booking
-// the last seat at the same time could both pass the check.
-//
-// The downside is the number could drift away from reality if I had a bug, so on the
-// attendee list screen I show a total that has to equal capacity minus seatsRemaining.
-// If those two ever disagree I know something is wrong.
+// Downside is it could drift if I make a mistake. So the attendee list shows a total
+// worked out the other way, and the two have to match.
 
 const eventSchema = new mongoose.Schema(
   {
@@ -38,8 +33,7 @@ const eventSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// The public listing always asks for the same thing: published events in the future.
-// Indexing those two fields together keeps that query fast as the collection grows.
+// the public listing always filters on these two, so index them together
 eventSchema.index({ status: 1, startsAt: 1 });
 
 eventSchema.methods.toJSONView = function () {

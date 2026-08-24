@@ -1,17 +1,15 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-// User model. Covers requirement R1 (register with a role) and N2 (hash passwords).
-// I only need two roles for this project, so I used an enum instead of a separate
-// roles collection. That keeps the permission checks simple to test.
+// User model. R1 register with a role, N2 hash the password.
+// Only two roles, so an enum is enough. A roles table would be overkill here.
 
 const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
       required: [true, 'Email is required'],
-      // unique index means the database rejects a duplicate even if two requests
-      // arrive at the same moment. Checking in the controller alone would not.
+      // unique index so the database blocks duplicates too, not just my code
       unique: true,
       lowercase: true,
       trim: true
@@ -29,7 +27,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Helper so the controller never has to touch bcrypt directly.
+// keeps bcrypt out of the controller
 userSchema.statics.hashPassword = async function (plainPassword) {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(plainPassword, salt);
@@ -39,7 +37,7 @@ userSchema.methods.checkPassword = function (plainPassword) {
   return bcrypt.compare(plainPassword, this.passwordHash);
 };
 
-// I never want the hash going out in a JSON response by accident, so I strip it here.
+// strips the hash so it cannot end up in a response by accident
 userSchema.methods.toSafeJSON = function () {
   return {
     id: this._id,

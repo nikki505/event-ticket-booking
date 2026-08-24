@@ -4,8 +4,7 @@ const Event = require('../src/models/Event');
 const Booking = require('../src/models/Booking');
 const { startDb, stopDb, clearDb, makeUser, makeEvent } = require('./setup');
 
-// Tests for US10, the no overbooking story. This is the file that actually proves the
-// design works, especially the last test.
+// US10, the no overbooking story. This file is what proves the design works.
 
 let organiser;
 let attendee;
@@ -78,18 +77,15 @@ test('seats remaining goes down by exactly the quantity booked', async () => {
   expect(after.seatsRemaining).toBe(17);
 });
 
-// AC4. THIS is the test that matters most.
+// AC4. This is the one that matters.
 //
-// If I had written the check as read, compare, then save, this test is the one that
-// would fail. Both requests would read seatsRemaining as 1, both would think there was
-// room, and both would save. I would end up with 2 bookings for 1 seat.
-//
-// Because the check and the subtraction happen in one findOneAndUpdate, only one of
-// them can match, so exactly one succeeds.
+// If I had written it as read, compare, save, this test would fail. Both requests
+// would read 1 seat, both would think there was room, and I would get 2 bookings for
+// 1 seat. Because the check and the subtract are one query, only one can match.
 test('two people booking the last seat at the same time, only one succeeds', async () => {
   const event = await makeEvent(app, organiser.token, { capacity: 1 });
 
-  // Fire both without awaiting in between, so they are genuinely in flight together.
+  // no await in between, so they are really in flight together
   const [first, second] = await Promise.all([
     book(attendee.token, event.id, 1),
     book(attendeeTwo.token, event.id, 1)
@@ -100,18 +96,17 @@ test('two people booking the last seat at the same time, only one succeeds', asy
 
   const after = await Event.findById(event.id);
   expect(after.seatsRemaining).toBe(0);
-  expect(after.seatsRemaining).toBeGreaterThanOrEqual(0); // must never go negative
+  expect(after.seatsRemaining).toBeGreaterThanOrEqual(0); // never negative
   expect(await Booking.countDocuments({ status: 'CONFIRMED' })).toBe(1);
 });
 
-// Same idea but with more requests, to be sure it was not just luck with two.
+// more requests, to check two was not just luck
 test('ten people racing for three seats, exactly three succeed', async () => {
   const event = await makeEvent(app, organiser.token, { capacity: 3 });
 
   const attempts = [];
   for (let i = 0; i < 10; i++) {
-    // alternating between the two attendee accounts is fine, nothing limits
-    // how many bookings one person can hold
+    // either account is fine, nothing limits bookings per person
     const token = i % 2 === 0 ? attendee.token : attendeeTwo.token;
     attempts.push(book(token, event.id, 1));
   }

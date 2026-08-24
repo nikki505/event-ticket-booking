@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { api, saveToken, clearToken, getToken } from './api';
 
-// Keeps track of who is signed in. I used context so I do not have to pass the user
-// down through every single component as a prop.
+// Keeps track of who is signed in. Context so I do not pass the user through every
+// component as a prop.
 
 const AuthContext = createContext(null);
 
@@ -10,10 +10,9 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Requirement R2 AC4, staying signed in after a refresh.
-  // The token is in localStorage, but I do not trust it just because it is there. I ask
-  // the server who it belongs to. If it has expired the server says 401 and the api
-  // helper clears it for me.
+  // R2 AC4, stay signed in after a refresh. The token is in localStorage but I do not
+  // trust it just because it is there, I ask the server who it belongs to. If it has
+  // expired the server says 401 and the api helper clears it.
   useEffect(() => {
     async function restoreSession() {
       if (!getToken()) {

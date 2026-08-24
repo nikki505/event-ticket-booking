@@ -1,9 +1,8 @@
-// All the input rules in one place so the same wording is used everywhere.
-// These match the validation table in docs/01-problem-and-requirements.md section 1.10.
+// All the input rules in one place, matching section 1.10 of my requirements.
 //
-// Everything here runs on the SERVER (requirement N1). The React form checks the same
-// things, but only so the user gets a fast answer. Anyone can call the API directly with
-// something like Postman, so the browser check cannot be the one that counts.
+// These run on the server. N1. The React form checks the same things but only so the
+// user gets an answer faster. Anyone can call the API with Postman, so the browser
+// check cannot be the one that counts.
 
 // Each function returns an object of { field: message }. Empty object means it passed.
 
@@ -57,8 +56,7 @@ function validateEvent(body) {
     else if (when.getTime() <= Date.now()) errors.startsAt = 'Event date must be in the future';
   }
 
-  // Number(...) on its own would accept "12abc" as NaN but also accept 12.5, so I check
-  // for a whole number as well. Capacity of half a seat does not mean anything.
+  // Number() would let 12.5 through, and half a seat means nothing
   const capacity = Number(body.capacity);
   if (body.capacity === undefined || body.capacity === '') {
     errors.capacity = 'Capacity is required';
@@ -95,10 +93,9 @@ function validateBookingQuantity(body) {
   return errors;
 }
 
-// Note there is one rule that is NOT in this file: "quantity must not be more than the
-// seats left". I cannot check that here because it depends on what is in the database
-// right now, and it could change between checking and saving. That rule lives inside the
-// atomic update in bookingController instead.
+// One rule is missing on purpose. Quantity versus seats left depends on what is in the
+// database right now and that can change between checking and saving, so it lives in
+// the atomic update in bookingController.
 
 function hasErrors(errors) {
   return Object.keys(errors).length > 0;

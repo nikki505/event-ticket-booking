@@ -1,5 +1,4 @@
-// One place that talks to the API, so every page does not have to repeat the fetch
-// options and the error handling.
+// One place that talks to the API so every page does not repeat the fetch setup.
 
 const TOKEN_KEY = 'ett_token';
 
@@ -15,8 +14,8 @@ export function clearToken() {
   localStorage.removeItem(TOKEN_KEY);
 }
 
-// I throw an Error with the server's message attached so the pages can just catch it and
-// show err.message. The field errors are attached too, for showing under each input.
+// throws an Error with the server message on it, so pages can just catch and show
+// err.message. Field errors ride along for showing under each input.
 async function callApi(path, options = {}) {
   const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
 
@@ -29,7 +28,7 @@ async function callApi(path, options = {}) {
   try {
     body = await res.json();
   } catch (e) {
-    // some responses have no body at all, that is fine
+    // some responses have no body, that is fine
   }
 
   if (!res.ok) {
@@ -38,8 +37,7 @@ async function callApi(path, options = {}) {
     error.errors = body.errors || {};
     error.seatsRemaining = body.seatsRemaining;
 
-    // If the token has gone stale there is no point staying on the page, so clear it
-    // and the app will bounce back to login.
+    // token is stale, clear it and the app drops back to login
     if (res.status === 401) clearToken();
 
     throw error;

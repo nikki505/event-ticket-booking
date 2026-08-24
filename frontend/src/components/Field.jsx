@@ -1,6 +1,5 @@
-// One input row with its label and its error message underneath.
-// Every form uses this so the error styling is identical everywhere, which is what the
-// design system page in Figma is for.
+// One input row with its label and error underneath. Every form uses it so the error
+// styling matches the design system page in Figma.
 
 export default function Field({ label, name, error, children, ...inputProps }) {
   return (

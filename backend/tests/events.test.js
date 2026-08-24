@@ -3,8 +3,8 @@ const app = require('../src/app');
 const Event = require('../src/models/Event');
 const { startDb, stopDb, clearDb, makeUser, makeEvent } = require('./setup');
 
-// Tests for US04 to US07 and US13. Mostly the validation rules from section 1.10 of my
-// requirements document, plus the capacity change rule which was the fiddly one.
+// US04 to US07 and US13. Mostly the validation rules from section 1.10, plus the
+// capacity change rule which was the fiddly one.
 
 let organiser;
 let attendee;
@@ -83,8 +83,7 @@ describe('the public listing, US08', () => {
     await request(app).post(`/api/events/${cancelled.id}/cancel`)
       .set('Authorization', `Bearer ${organiser.token}`);
 
-    // A past event cannot be made through the API because validation blocks it, so I
-    // insert it straight into the database to set up this case.
+    // validation blocks a past event, so I insert one straight into the database
     await Event.create({
       organiserId: organiser.user.id, title: 'Past one', venue: 'Old Venue',
       startsAt: new Date(Date.now() - 8.64e7), capacity: 10, seatsRemaining: 10, price: 0
@@ -124,7 +123,7 @@ describe('updating an event, US06', () => {
     expect(res.body.event.venue).toBe('A Different Venue');
   });
 
-  // AC2. Capacity cannot drop below what is already booked.
+  // AC2. Capacity cannot drop below what is booked.
   test('capacity cannot be dropped below the seats already booked', async () => {
     const event = await makeEvent(app, organiser.token, { capacity: 10 });
 
@@ -140,8 +139,8 @@ describe('updating an event, US06', () => {
     expect(res.body.errors.capacity).toBe('Capacity cannot be lower than the 8 seats already booked');
   });
 
-  // AC4. This is the one I nearly got wrong. Raising capacity has to ADD the difference,
-  // not overwrite seatsRemaining, or the 8 existing bookings would disappear.
+  // AC4. I nearly got this wrong. Raising capacity adds the difference. If it
+  // overwrote seatsRemaining the 8 bookings would just disappear.
   test('raising capacity adds the difference and keeps existing bookings', async () => {
     const event = await makeEvent(app, organiser.token, { capacity: 10 });
 
@@ -149,14 +148,14 @@ describe('updating an event, US06', () => {
       .set('Authorization', `Bearer ${attendee.token}`)
       .send({ eventId: event.id, quantity: 8 });
 
-    // 10 capacity, 8 booked, so 2 free right now
+    // 10 capacity, 8 booked, 2 free
     const res = await request(app).patch(`/api/events/${event.id}`)
       .set('Authorization', `Bearer ${organiser.token}`)
       .send({ capacity: 20 });
 
     expect(res.status).toBe(200);
     expect(res.body.event.capacity).toBe(20);
-    // 20 minus the 8 already booked is 12. If I had overwritten it, it would say 20.
+    // 20 minus 8 booked is 12. Overwriting would say 20.
     expect(res.body.event.seatsRemaining).toBe(12);
   });
 });
@@ -171,7 +170,7 @@ describe('cancelling an event, US07', () => {
     expect(res.status).toBe(200);
     expect(res.body.event.status).toBe('CANCELLED');
 
-    // Soft delete, so the row is still there
+    // soft delete, the row is still there
     const stillInDb = await Event.findById(event.id);
     expect(stillInDb).not.toBeNull();
 
@@ -191,9 +190,8 @@ describe('cancelling an event, US07', () => {
 });
 
 describe('the attendee list, US13', () => {
-  // AC4. The two totals are worked out in completely different ways, so if they ever
-  // disagree it means the stored counter has drifted. This is the safety net for
-  // decision D004.
+  // AC4. The two totals are worked out different ways, so if they disagree the stored
+  // counter has drifted. Safety net for D004.
   test('the confirmed total matches capacity minus seats remaining', async () => {
     const event = await makeEvent(app, organiser.token, { capacity: 20 });
 

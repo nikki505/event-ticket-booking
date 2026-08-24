@@ -1,17 +1,14 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-// Authorisation middleware. Covers R3 and R4.
+// R3 and R4. Two checks, kept separate on purpose:
+//   protect      are you signed in at all
+//   requireRole  are you the right kind of user
 //
-// There are two separate checks and I kept them apart on purpose:
-//   protect      is this a real logged in user at all?
-//   requireRole  is this user the right KIND of user?
+// Is it actually yours is a third check, but that needs the record from the database
+// so it happens in the controller.
 //
-// Ownership ("is this actually YOUR event?") is a third check, but that one needs the
-// database record, so it happens in the controller once the record is loaded.
-//
-// The order matters. protect has to run before requireRole because there is no role
-// until I know who the user is.
+// protect has to run first. There is no role until I know who you are.
 
 function signToken(user) {
   return jwt.sign(
@@ -33,9 +30,8 @@ async function protect(req, res, next) {
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
 
-    // I look the user up again rather than trusting the role inside the token.
-    // If someone's role changed, or their account was removed, the token would still
-    // say the old thing until it expired.
+    // look the user up again instead of trusting the role in the token, because the
+    // token would still say the old role if it changed
     const user = await User.findById(payload.sub);
     if (!user) {
       return res.status(401).json({ message: 'You need to sign in to do that' });
@@ -44,8 +40,7 @@ async function protect(req, res, next) {
     req.user = user;
     next();
   } catch (err) {
-    // Covers an expired token and a tampered one. Same answer either way, because
-    // telling the caller which one it was does not help them do anything useful.
+    // expired or tampered, same answer either way
     return res.status(401).json({ message: 'Your session has expired, please sign in again' });
   }
 }

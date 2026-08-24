@@ -1,11 +1,8 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 
-// The links change depending on the role.
-//
-// Worth being clear about this: hiding a link is only to keep the interface tidy. It is
-// NOT the security. An attendee who typed the organiser URL by hand would still get a
-// 403 from the server, because that is where the real check is.
+// Links change with the role, but hiding a link is only tidiness, not security. An
+// attendee who typed the organiser URL still gets a 403 from the server.
 
 export default function NavBar() {
   const { user, logout } = useAuth();

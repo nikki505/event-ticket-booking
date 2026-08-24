@@ -1,11 +1,10 @@
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 
-// Booking model. Covers R10, R12 and R13.
+// Booking model. R10, R12, R13.
 //
-// A booking only has two states. I thought about adding PENDING and PAID but there
-// are no payments in this project, so those states could never actually happen and
-// every extra state would need its own guard and its own test.
+// Two states only. I thought about PENDING and PAID but there are no payments, so
+// they could never happen and each one would need its own guard and test.
 
 const bookingSchema = new mongoose.Schema(
   {
@@ -32,9 +31,9 @@ const bookingSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Reference the attendee actually sees, like ETB-7Q4M-2XKD.
-// I used crypto.randomBytes instead of Math.random because random bytes are far less
-// likely to repeat, and the reference field has a unique index as a backstop anyway.
+// the code the attendee sees, like ETB-7Q4M-2XKD.
+// crypto.randomBytes not Math.random because it is far less likely to repeat, and
+// the field has a unique index as a backup.
 bookingSchema.statics.makeReference = function () {
   const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no I, O, 0 or 1, they look alike
   const bytes = crypto.randomBytes(8);

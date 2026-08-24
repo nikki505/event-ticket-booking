@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api';
 
-// R9. Matches the Figma frames "R9 Event Listing" and "R9 Event Listing (empty state)".
+// R9. Figma frames R9 Event Listing and R9 Event Listing (empty state).
 
 function formatWhen(iso) {
   return new Date(iso).toLocaleString('en-AU', {
@@ -35,7 +35,7 @@ export default function EventList() {
 
       {message && <div className="banner error">{message}</div>}
 
-      {/* Empty state. Showing nothing at all would look like the page was broken. */}
+      {/* empty state, otherwise the page looks broken */}
       {events.length === 0 ? (
         <div className="empty">
           <h2>No upcoming events just yet</h2>
@@ -50,7 +50,7 @@ export default function EventList() {
               <div className="meta">{event.venue} · {formatWhen(event.startsAt)}</div>
               <div className="price">{formatPrice(event.price)}</div>
 
-              {/* A sold out event keeps its place in the grid but cannot be booked */}
+              {/* sold out events stay in the grid but cannot be booked */}
               <div className={`seats${event.seatsRemaining > 0 && event.seatsRemaining <= 10 ? ' low' : ''}`}>
                 {event.soldOut
                   ? 'Sold out'

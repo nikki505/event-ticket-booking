@@ -4,11 +4,10 @@ const Event = require('../src/models/Event');
 const Booking = require('../src/models/Booking');
 const { startDb, stopDb, clearDb, makeUser, makeEvent } = require('./setup');
 
-// Tests for US11 and US12, which is workflow W2.
+// US11 and US12, workflow W2.
 //
-// Cancelling is the mirror image of booking. Booking must never let the seats go below
-// zero, and cancelling must never let them go above capacity. Both problems come from
-// the same place, which is why I derived one shared requirement (R11.1) for them.
+// Cancelling is booking backwards. Booking must not take seats below zero, cancelling
+// must not push them above capacity. Same problem, which is why both come from R11.1.
 
 let organiser;
 let attendee;
@@ -57,8 +56,7 @@ describe('my bookings, US11', () => {
     const res = await request(app).get('/api/bookings/mine')
       .set('Authorization', `Bearer ${attendee.token}`);
 
-    // It should still be listed, not hidden. Hiding it would make the seat maths
-    // impossible to check later.
+    // still listed, not hidden, or the seat maths cannot be checked later
     expect(res.body.bookings).toHaveLength(1);
     expect(res.body.bookings[0].status).toBe('CANCELLED');
   });
@@ -84,7 +82,7 @@ describe('cancelling a booking, US12', () => {
     expect(current.seatsRemaining).toBe(10);
   });
 
-  // AC2. This is the important one.
+  // AC2. The important one.
   test('cancelling the same booking twice does not give the seats back twice', async () => {
     const event = await makeEvent(app, organiser.token, { capacity: 10 });
     const booking = await bookSeats(attendee.token, event.id, 3);
@@ -96,13 +94,12 @@ describe('cancelling a booking, US12', () => {
     expect(second.status).toBe(409);
 
     const current = await Event.findById(event.id);
-    // If the second cancel had gone through, this would say 13, which is more seats
-    // than the venue has. The event would then be able to oversell.
+    // if the second cancel had worked this would say 13, more seats than the venue has
     expect(current.seatsRemaining).toBe(10);
     expect(current.seatsRemaining).toBeLessThanOrEqual(current.capacity);
   });
 
-  // Same problem but with both requests arriving together.
+  // same thing with both requests at once
   test('two cancel requests at the same moment only release the seats once', async () => {
     const event = await makeEvent(app, organiser.token, { capacity: 10 });
     const booking = await bookSeats(attendee.token, event.id, 4);

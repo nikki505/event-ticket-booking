@@ -4,8 +4,7 @@ import { api } from '../api';
 import { useAuth } from '../AuthContext';
 import Field from '../components/Field';
 
-// R10 and R11. Matches the Figma frames "R10 Book Tickets", "R10 Booking Success" and
-// "R11 Sold Out / Capacity Conflict".
+// R10 and R11. Figma frames R10 Book Tickets, R10 Booking Success, R11 Sold Out.
 
 export default function EventDetail() {
   const { id } = useParams();
@@ -37,7 +36,7 @@ export default function EventDetail() {
       return;
     }
 
-    // Not signed in, so send them to log in first and come straight back here.
+    // not signed in, send them to login and bring them back here
     if (!user) {
       navigate('/login', { state: { from: `/events/${id}` } });
       return;
@@ -49,8 +48,8 @@ export default function EventDetail() {
       setBooking(data.booking);
       setEvent({ ...event, seatsRemaining: data.seatsRemaining });
     } catch (err) {
-      // A 409 means the seats went while this request was on its way. The server tells me
-      // how many are actually left, so I update the page to show the truth.
+      // 409 means the seats went while the request was on its way. The server says how
+      // many are left, so I update the page.
       setMessage(err.message);
       setMessageKind('error');
       if (err.errors?.quantity) setFieldError(err.errors.quantity);
@@ -70,7 +69,7 @@ export default function EventDetail() {
     );
   }
 
-  // Success state, after a booking goes through
+  // success screen after a booking
   if (booking) {
     return (
       <div className="page">
@@ -103,9 +102,8 @@ export default function EventDetail() {
 
       {message && <div className={`banner ${messageKind}`}>{message}</div>}
 
-      {/* Only show the low seat warning when there is no error on screen. If a booking was
-          just rejected the error banner already says how many seats are left, and showing
-          the warning as well repeated the same sentence twice in two different colours. */}
+      {/* only show the low seat warning if there is no error already. Otherwise the same
+          sentence showed up twice in two colours. */}
       {!message && (
         event.seatsRemaining === 0 ? (
           <div className="banner warn">This event is sold out.</div>

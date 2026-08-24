@@ -2,7 +2,7 @@ const User = require('../models/User');
 const { signToken } = require('../middleware/auth');
 const { validateRegister, validateLogin, hasErrors } = require('../utils/validators');
 
-// R1 register a new account with a role
+// R1 register with a role
 async function register(req, res, next) {
   try {
     const errors = validateRegister(req.body);
@@ -25,9 +25,8 @@ async function register(req, res, next) {
 
     return res.status(201).json({ token: signToken(user), user: user.toSafeJSON() });
   } catch (err) {
-    // If two people register the same email at the exact same moment they can both get
-    // past the findOne check above. The unique index still stops the second one, and
-    // Mongo throws error code 11000, so I turn that into the same message.
+    // Two people registering the same email at once can both get past the check above.
+    // The unique index still stops the second, code 11000, so I show the same message.
     if (err.code === 11000) {
       return res.status(409).json({
         message: 'Please correct the highlighted fields',
@@ -48,9 +47,8 @@ async function login(req, res, next) {
 
     const user = await User.findOne({ email: req.body.email.trim().toLowerCase() });
 
-    // Decision D006. I give the SAME message whether the email does not exist or the
-    // password is wrong. If I said "no account with that email" then anyone could type
-    // in addresses and find out which ones are registered here.
+    // D006. Same message whether the email is unknown or the password is wrong,
+    // otherwise anyone could type addresses in and find out who is registered.
     const failMessage = 'Email or password is incorrect';
 
     if (!user) return res.status(401).json({ message: failMessage });
@@ -64,7 +62,7 @@ async function login(req, res, next) {
   }
 }
 
-// Used by the React app on page load to check the saved token is still good
+// the React app calls this on load to check the saved token still works
 async function me(req, res) {
   return res.json({ user: req.user.toSafeJSON() });
 }

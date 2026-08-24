@@ -4,9 +4,8 @@ const request = require('supertest');
 
 // Test helpers.
 //
-// I run the tests against an in memory MongoDB rather than my real one. That way the
-// tests cannot wreck my development data, and they start from a clean database every
-// time so one test cannot affect the next one.
+// These run against an in memory MongoDB, not my real one. That way they cannot wreck
+// my dev data and every test starts from a clean database.
 
 process.env.JWT_SECRET = 'test-secret-only-used-by-jest';
 process.env.JWT_EXPIRES_IN = '1h';
@@ -30,7 +29,7 @@ async function clearDb() {
   }
 }
 
-// Makes an account and gives back the token, so tests do not repeat this every time.
+// makes an account and returns the token so tests do not repeat this
 async function makeUser(app, email, role) {
   const res = await request(app)
     .post('/api/auth/register')
@@ -39,7 +38,7 @@ async function makeUser(app, email, role) {
   return { token: res.body.token, user: res.body.user };
 }
 
-// Default event is 20 seats unless a test asks for something different.
+// 20 seats unless the test asks for something else
 async function makeEvent(app, token, overrides = {}) {
   const tomorrow = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 

@@ -3,12 +3,10 @@ const app = require('../src/app');
 const User = require('../src/models/User');
 const { startDb, stopDb, clearDb, makeUser, makeEvent } = require('./setup');
 
-// Tests for US01, US02 and US03. These cover success criteria SC4 (wrong role) and
-// SC5 (wrong owner) from my requirements document.
+// US01, US02, US03. Covers SC4 wrong role and SC5 wrong owner.
 //
-// The point of these tests is that I call the API directly instead of going through the
-// React app. Hiding a button in the interface does not stop anyone using Postman, so the
-// server is the thing that actually has to say no.
+// These call the API directly instead of going through React. Hiding a button does not
+// stop anyone using Postman, so the server has to be the one that says no.
 
 let organiser;
 let otherOrganiser;
@@ -41,7 +39,7 @@ describe('registration', () => {
     const saved = await User.findOne({ email: 'hash@test.com' });
 
     expect(saved.passwordHash).not.toBe('password123');
-    expect(saved.passwordHash).toMatch(/^\$2[aby]\$/); // bcrypt hashes start like this
+    expect(saved.passwordHash).toMatch(/^\$2[aby]\$/); // bcrypt hashes look like this
     expect(JSON.stringify(saved.toSafeJSON())).not.toContain('password');
   });
 
@@ -79,7 +77,7 @@ describe('login', () => {
     expect(res.body.token).toBeTruthy();
   });
 
-  // Decision D006
+  // D006
   test('a wrong password and an unknown email give the exact same message', async () => {
     const wrongPassword = await request(app).post('/api/auth/login')
       .send({ email: 'org1@test.com', password: 'notthepassword' });
@@ -89,7 +87,7 @@ describe('login', () => {
 
     expect(wrongPassword.status).toBe(401);
     expect(noSuchUser.status).toBe(401);
-    // If these two differed, someone could work out which emails are registered.
+    // if these differed you could work out which emails are registered
     expect(wrongPassword.body.message).toBe(noSuchUser.body.message);
     expect(wrongPassword.body.message).toBe('Email or password is incorrect');
   });
@@ -176,7 +174,7 @@ describe('wrong owner, SC5', () => {
   });
 
   test('sending someone else organiserId in the body does not change the owner', async () => {
-    // The controller takes the owner from the token, so this field is ignored.
+    // the controller takes the owner from the token, so this is ignored
     const res = await request(app).post('/api/events')
       .set('Authorization', `Bearer ${organiser.token}`)
       .send({

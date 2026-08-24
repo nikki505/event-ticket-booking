@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import Field from '../components/Field';
 
-// R1. Matches the Figma frames "R1 Register" and "R1 Register (validation errors)".
+// R1. Figma frames R1 Register and R1 Register (validation errors).
 
 export default function Register() {
   const { register } = useAuth();
@@ -18,8 +18,7 @@ export default function Register() {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
-  // The same rules also run on the server. I check here as well only so the user gets an
-  // answer straight away instead of waiting for a round trip.
+  // same rules run on the server. Checking here too just makes it feel faster.
   function checkBeforeSending() {
     const found = {};
     if (!form.email.trim()) found.email = 'Email is required';

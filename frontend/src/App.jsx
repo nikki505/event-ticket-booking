@@ -10,17 +10,16 @@ import OrganiserDashboard from './pages/OrganiserDashboard';
 import EventForm from './pages/EventForm';
 import AttendeeList from './pages/AttendeeList';
 
-// Wraps a page so only the right role can reach it.
-// Again, this is about not showing someone a broken screen. The server does the real
-// enforcing. If I deleted this component entirely the app would be untidy but still safe.
+// Stops the wrong role reaching a page. This is about not showing someone a broken
+// screen. The server does the real enforcing, so deleting this would be untidy but
+// still safe.
 function RequireRole({ role, children }) {
   const { user, loading } = useAuth();
   const location = useLocation();
 
   if (loading) return <div className="loading">Loading…</div>;
 
-  // Remembering where they were trying to go, so after signing in they land back there
-  // instead of on a generic home page. That is requirement R10 AC4.
+  // remember where they were going so they land back there after signing in. R10 AC4.
   if (!user) return <Navigate to="/login" state={{ from: location.pathname }} replace />;
 
   if (role && user.role !== role) {
@@ -36,7 +35,7 @@ function RequireRole({ role, children }) {
   return children;
 }
 
-// Sends a signed in user to the right home page for their role.
+// sends a signed in user to the right home page for their role
 function Home() {
   const { user, loading } = useAuth();
   if (loading) return <div className="loading">Loading…</div>;
@@ -53,7 +52,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* anyone can browse, signing in is only needed to actually book */}
+        {/* anyone can browse, you only need an account to book */}
         <Route path="/events" element={<EventList />} />
         <Route path="/events/:id" element={<EventDetail />} />
 

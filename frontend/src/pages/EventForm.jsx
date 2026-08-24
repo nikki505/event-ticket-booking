@@ -3,13 +3,10 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { api } from '../api';
 import Field from '../components/Field';
 
-// R5 and R7. One form does both create and edit, because the fields are the same and
-// duplicating it would mean fixing every validation message twice.
-// Matches the Figma frames "R5 Create Event", "R5 Create Event (validation errors)"
-// and "R7 Edit Event".
+// R5 and R7. One form for create and edit, the fields are the same and duplicating it
+// would mean fixing every message twice. Figma frames R5 Create Event and R7 Edit Event.
 
-// The datetime-local input wants "YYYY-MM-DDTHH:mm" and will not accept an ISO string
-// with the seconds and timezone on the end, so I trim it here.
+// datetime-local wants YYYY-MM-DDTHH:mm and rejects a full ISO string, so trim it
 function toInputValue(iso) {
   const d = new Date(iso);
   const pad = (n) => String(n).padStart(2, '0');
@@ -41,7 +38,7 @@ export default function EventForm() {
           startsAt: toInputValue(e.startsAt),
           capacity: String(e.capacity), price: String(e.price)
         });
-        // Useful to show while editing, because capacity cannot go below this number
+        // shown while editing, capacity cannot go below this
         setSeatsInfo({ booked: e.capacity - e.seatsRemaining, capacity: e.capacity });
       })
       .catch((err) => setMessage(err.message))
@@ -58,9 +55,8 @@ export default function EventForm() {
     setMessage('');
     setErrors({});
 
-    // Now that the browser is not validating for me, an empty date reaches this line.
-    // new Date('').toISOString() throws a RangeError, so send the raw value through and
-    // let the server answer with the proper message instead of crashing the page.
+    // the browser is not validating any more, so an empty date reaches here and
+    // new Date('').toISOString() throws. Send the raw value and let the server answer.
     const when = new Date(form.startsAt);
     const startsAt = isNaN(when.getTime()) ? form.startsAt : when.toISOString();
 
