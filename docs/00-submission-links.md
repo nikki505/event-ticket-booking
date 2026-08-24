@@ -14,7 +14,7 @@ Copy these onto the cover page of the submission PDF.
 |---|---|---|
 | **GitHub** | https://github.com/nikki505/event-ticket-booking | Public, live |
 | **Jira board** | https://connect-team-acmqgqe7.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog | Live — needs marker access granted |
-| **Draw.io** | *[paste share link]* | Source committed at `docs/diagrams/event-ticket-booking.drawio` — open it at app.diagrams.net and share view-only |
+| **Draw.io** | https://viewer.diagrams.net/?lightbox=1&nav=1#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fnikki505%2Fevent-ticket-booking%2Fmain%2Fdocs%2Fdiagrams%2Fevent-ticket-booking.drawio | View only. The viewer loads the committed source straight from the public repository, so the link needs no cloud account and can never drift from the file in the repo |
 | **Figma** | https://www.figma.com/design/9YK2uHsPeA2ZhLgq0SlIjG/Event-Ticket-Booking-System | Generated. **Set sharing to anyone with the link can view before submitting** |
 | **EC2 instance ID and name** | `i-04a1250e9732b2449` / `n12202665-nikhittha-eventtix` | Running, ap-southeast-2a |
 | **EC2 public URL** | http://32.236.117.199 | Elastic IP, so the address is permanent. Reachable from the developer IP only. **The account stops the instance on a schedule, so check it is running before the demo.** See §7.6a and §7.7 of the runbook |
@@ -93,7 +93,6 @@ Everything below needs a person other than the developer, which is why it is sti
 | 1 | Confirm the Figma link opens for someone who is not signed in | Figma blocks automated clients, so it could not be verified from outside. Open it in a private window. |
 | 2 | Ask Himi how the marker reaches the EC2 URL | Students cannot create security groups in this account, so port 80 admits one address. Needs the marking IP, or her agreement to open it wider for the demo. |
 | 3 | Ask Himi how the marker gets Jira access | The board sits in a QUT tenanted site. She may already have access through the same tenancy. |
-| 4 | Share the draw.io file if a live link is required | The source is committed and every diagram is rendered into the report, so this is only needed if the rubric insists on a draw.io URL specifically. |
 | 5 | Rewrite the reflection in section 6.3 in your own words | It is a personal account. The events in it are real and verifiable in the repository, but the wording was drafted with AI assistance and it is declared as such in section 6.1. |
 | 6 | Release the Elastic IP after marking | It is shared account capacity held for this project. |
 

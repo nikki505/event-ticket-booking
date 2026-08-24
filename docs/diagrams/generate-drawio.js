@@ -330,22 +330,41 @@ const seq = (() => {
     ['sB', 'sC', '201 {reference, quantity}', 620],
     ['sC', 'sA', 'success screen with booking reference', 660],
   ];
+  // Lifeline centres. The messages are drawn as free floating edges with absolute
+  // points rather than by attaching source and target to the lifeline shapes.
+  // Attaching them made draw.io ignore the y coordinates entirely and route every
+  // message between the shapes' default connection points, so all thirteen messages
+  // landed on one horizontal line on top of each other.
+  const CX = { sA: 135, sC: 315, sG: 505, sB: 715, sD: 945 };
+
   msgs.forEach(([f, t, label, y], i) => {
-    const self = f === t;
-    const style = self
-      ? 'edgeStyle=orthogonalEdgeStyle;html=1;fontSize=9;align=left;verticalAlign=bottom;curved=0;'
-      : 'edgeStyle=none;html=1;fontSize=9;align=center;verticalAlign=bottom;';
-    const geom = self
-      ? `<mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="${
-          { sG: 560, sB: 780 }[f] || 560
-        }" y="${y}"/><mxPoint x="${{ sG: 560, sB: 780 }[f] || 560}" y="${y + 25}"/></Array></mxGeometry>`
-      : `<mxGeometry relative="1" as="geometry"><mxPoint x="0" y="${y}" as="sourcePoint"/><mxPoint x="0" y="${y}" as="targetPoint"/></mxGeometry>`;
+    const x1 = CX[f], x2 = CX[t];
+    let style, geom;
+
+    if (f === t) {
+      // self call, drawn as a small loop to the right of the lifeline
+      style = 'edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;align=left;' +
+              'verticalAlign=middle;endArrow=block;endFill=1;labelBackgroundColor=#ffffff;';
+      geom = '<mxGeometry relative="1" as="geometry">' +
+             `<mxPoint x="${x1}" y="${y}" as="sourcePoint"/>` +
+             `<mxPoint x="${x1}" y="${y + 26}" as="targetPoint"/>` +
+             '<Array as="points">' +
+             `<mxPoint x="${x1 + 75}" y="${y}"/>` +
+             `<mxPoint x="${x1 + 75}" y="${y + 26}"/>` +
+             '</Array></mxGeometry>';
+    } else {
+      style = 'edgeStyle=none;html=1;fontSize=9;align=center;verticalAlign=bottom;' +
+              'endArrow=block;endFill=1;labelBackgroundColor=#ffffff;';
+      geom = '<mxGeometry relative="1" as="geometry">' +
+             `<mxPoint x="${x1}" y="${y}" as="sourcePoint"/>` +
+             `<mxPoint x="${x2}" y="${y}" as="targetPoint"/>` +
+             '</mxGeometry>';
+    }
+
     cells.push({
       kind: 'edge',
       id: 'm' + i,
-      xml:
-        `<mxCell id="m${i}" value="${esc(label)}" style="${style}" edge="1" parent="1" ` +
-        `source="${f}" target="${t}">${geom}</mxCell>`,
+      xml: `<mxCell id="m${i}" value="${esc(label)}" style="${style}" edge="1" parent="1">${geom}</mxCell>`,
     });
   });
 
