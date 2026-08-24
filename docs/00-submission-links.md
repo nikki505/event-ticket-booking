@@ -17,7 +17,7 @@ Copy these onto the cover page of the submission PDF.
 | **Draw.io** | *[paste share link]* | Source committed at `docs/diagrams/event-ticket-booking.drawio` — open it at app.diagrams.net and share view-only |
 | **Figma** | https://www.figma.com/design/9YK2uHsPeA2ZhLgq0SlIjG/Event-Ticket-Booking-System | Generated. **Set sharing to anyone with the link can view before submitting** |
 | **EC2 instance ID and name** | `i-04a1250e9732b2449` / `n12202665-nikhittha-eventtix` | Running, ap-southeast-2a |
-| **EC2 public URL** | http://32.236.117.199 | Live. **Elastic IP, so the address is now permanent. Reachable only from the developer IP. **Check the instance is running before the demo, the account stops it on a schedule**** — see §7.7 of the runbook |
+| **EC2 public URL** | http://32.236.117.199 | Elastic IP, so the address is permanent. Reachable from the developer IP only. **The account stops the instance on a schedule, so check it is running before the demo.** See §7.6a and §7.7 of the runbook |
 
 > **The brief warns of negative marking for broken links.** Check every one of these from a
 > logged-out private browsing window before submitting. A Jira board that works while you are
@@ -106,5 +106,5 @@ Everything below needs a person other than the developer, which is why it is sti
 | Repository | 30 commits, tagged `v1.0`, one merged pull request with a written self review |
 | Jira | 5 epics, 16 stories, all 21 issues Done, both sprints closed on the real working dates |
 | Application | Both workflows working, 49 automated tests passing |
-| Deployment | Live on an Elastic IP, verified end to end including a process restart |
-| Report | 38 pages, no placeholders, diagrams and screenshots embedded |
+| Deployment | Live on an Elastic IP, verified end to end including a full instance stop and start |
+| Report | 40 pages, no placeholders, 22 figures including the Figma design pages |
