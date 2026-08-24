@@ -8,7 +8,7 @@ The plugin source is in [`figma-plugin/`](figma-plugin/).
 Figma has no API for creating design content — the REST API is read-only for file contents,
 so a design cannot be produced from outside the editor. The Plugin API *can* create frames,
 components, text and prototype links. Generating the file this way has three advantages
-over drawing 23 frames by hand:
+over drawing 25 frames by hand:
 
 1. **Consistency is guaranteed.** Every screen is assembled from the same nine components
    and the same spacing constants, so the visual hierarchy cannot drift between screens.
@@ -27,9 +27,9 @@ links. It can be edited by hand afterwards like any other.
 |---|---|
 | `01 - Design System` | Colour scale, type scale, and 9 reusable components: 3 button variants, 2 field states, 3 status badges, 1 event card |
 | `02 - Wireframes (lo-fi)` | 6 greyscale wireframes — the design-phase artefact showing layout and navigation flow before any visual styling |
-| `03 - Hi-fi Screens` | 17 screens covering both roles and all four required states, with 8 prototype links wired |
+| `03 - Hi-fi Screens` | 19 screens covering both roles and all four required states, with 11 prototype links wired |
 
-**23 frames total.**
+**25 frames total.**
 
 ### State coverage (required by the brief)
 
@@ -47,6 +47,7 @@ links. It can be edited by hand afterwards like any other.
 
 **W1 — organiser path:**
 `R1 - Register` → `R6 - Organiser Dashboard` → `R5 - Create Event` → back to dashboard
+`R7 - Edit Event`, `R8 - Cancel Event Confirm` and `R14 - Attendee List` also return to the dashboard
 
 **W2 — cancel and release:**
 `R12 - My Bookings` → `R13 - Cancel Booking Confirm`
@@ -88,7 +89,7 @@ runtime errors without opening Figma:
 node test-harness.js
 ```
 
-Expected output: 3 pages, 23 frames, 9 components, 8 prototype links, `ALL CHECKS PASSED`.
+Expected output: 3 pages, 25 frames, 9 components, 11 prototype links, `ALL CHECKS PASSED`.
 The harness is a development aid and is not part of the plugin itself.
 
 ## Known limitations
