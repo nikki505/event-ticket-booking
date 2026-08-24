@@ -28,3 +28,4 @@ coverage/
 # Credentials — defence in depth
 *.pem
 *.key
+deploy/.last-allowed-ip

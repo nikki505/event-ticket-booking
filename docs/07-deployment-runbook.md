@@ -194,6 +194,26 @@ Expected: `{"status":"ok","time":"..."}`.
 
 ---
 
+## 7.6 Before every demonstration, run one script
+
+```bash
+bash deploy/fix-access.sh
+```
+
+Access breaks for two reasons and both happen regularly. The developer machine is issued a
+new public address by its network, and port 80 on the shared security group only admits one
+address at a time. Separately, the teaching account stops the instance on a schedule. During
+this project the address changed four times in three days.
+
+The script refreshes the AWS session if it has expired, opens ports 80 and 22 for whatever
+address the machine is on now, removes the address it opened last time so this project leaves
+one rule on the shared group rather than an accumulating list, starts the instance if it is
+stopped, and waits until the health endpoint answers.
+
+If it reports 502 the proxy is up but the API is not, which is what the pm2 log will explain.
+
+---
+
 ## 7.6a The instance is stopped automatically
 
 The instance was found stopped on 24 August without anyone stopping it deliberately. When
